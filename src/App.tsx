@@ -1,5 +1,10 @@
 import React from "react";
 import { HashRouter as Router, Routes, Route, Link, NavLink } from "react-router-dom";
+import RollingSphereCarImageUrl from "./assets/RollingSphereCar.png";
+import DroneLightCubeMovieUrl from "./assets/DroneCubeTest1.mov";
+import DroneLightCubeImageUrl from "./assets/DroneCubeStill.png";
+import TreeOfLightImageUrl from "./assets/TreeOfLight.png";
+import MeUrl from "./assets/Me.jpeg";
 import DroneLightCube from "./projects/DroneLightCube";
 import TreeOfLight from "./projects/TreeOfLight";
 import RollingSphereCar from "./projects/RollingSphereCar";
@@ -61,7 +66,7 @@ const Home = () => (
       <Prose>
       <figure className="flex flex-col items-center">
 		  <img
-		    src="/public/me.jpeg"
+		    src={MeUrl}
 		    alt="Portrait of Aurel"
 		    className="w-80 h-80 rounded-full shadow-md object-cover mb-6"
 		  />
@@ -96,12 +101,12 @@ const ProjectDroneLightCube = () => (
           className="w-full h-auto"
           controls
           playsInline
-          poster="/public/DroneCubeStill.png"
+          poster={DroneLightCubeImageUrl}
           autoPlay
 		  loop
 		  muted
         >
-          <source src="/public/DroneCubeTest1.mov" type="video/mp4" />
+          <source src={DroneLightCubeMovieUrl} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <figcaption className="text-sm text-neutral-600 mt-2 text-center">A simple animation to convey the effect. Note that I envision a larger cube, multiple drones and a sophisticated choreography.</figcaption>
@@ -120,7 +125,7 @@ const ProjectTreeOfLight = () => (
       <figure className="rounded-2xl overflow-hidden shadow">
         <img
           className="w-full h-auto"
-          src="/public/TreeOfLight.png"
+          src={TreeOfLightImageUrl}
           alt="Hero image of the project"
           loading="lazy"
         />
@@ -138,7 +143,7 @@ const ProjectRollingSphereCar = () => (
       <figure className="rounded-2xl overflow-hidden shadow">
         <img
           className="w-full h-auto"
-          src="/public/RollingSphereCar.png"
+          src={RollingSphereCarImageUrl}
           alt="Hero image of the project"
           loading="lazy"
         />
