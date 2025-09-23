@@ -100,7 +100,6 @@ const ProjectDroneLightCube = () => (
           autoPlay
 		  loop
 		  muted
-  		  playsInline
         >
           <source src="/public/DroneCubeTest1.mov" type="video/mp4" />
           Your browser does not support the video tag.
