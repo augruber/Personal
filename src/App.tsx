@@ -13,8 +13,13 @@ import RollingSphereCar from "./projects/RollingSphereCar";
 const Container = ({ children }: { children: React.ReactNode }) => (
   <div className="w-full min-h-screen bg-neutral-50 text-neutral-900">
     <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-neutral-200">
-      <div className="max-w-screen-lg mx-auto px-4 py-3 flex items-center justify-between">
-        <Link to="/" className="font-semibold tracking-tight text-lg">Aurel · Projects</Link>
+      <div className="max-w-screen-lg mx-auto px-4 py-3 flex items-center justify-between">    
+        <Link to="/" className="font-semibold tracking-tight text-lg flex items-center gap-2">
+		  Aurel <img
+		    src={`${import.meta.env.BASE_URL}Logo-128-bw.png`} 
+		    alt="Logo"
+		    className="h-8 w-8"
+		  /> Projects</Link>
         <nav className="flex gap-4">
           <NavLink
             to="/project-drone-light-cube"
@@ -68,7 +73,7 @@ const Home = () => (
 		  <img
 		    src={MeUrl}
 		    alt="Portrait of Aurel"
-		    className="w-96 h-96 rounded-full shadow-md object-cover mb-6"
+		    className="w-96 h-96 rounded-full shadow-md object-cover mb-6 filter grayscale transition duration-500 hover:grayscale-0  hover:scale-98"
 		  />
 		  <figcaption className="mt-2 text-sm text-neutral-600">
 		    Hi, I’m Aurel 👋
@@ -82,9 +87,9 @@ const Home = () => (
         </p>
       </Prose>
       <div className="grid md:grid-cols-2 gap-6">
-        <CardLink to="/project-drone-light-cube" title="Drone Light Cube" subtitle="Video · Image · Text" />
-        <CardLink to="/project-tree-of-light" title="Tree Of Light" subtitle="Image · Text" />
-        <CardLink to="/project-rolling-sphere-car" title="Rolling Sphere Car" subtitle="Image · Text" />
+        <CardLink to="/project-drone-light-cube" title="Drone Light Cube" subtitle="Video · Image · Text" img={DroneLightCubeImageUrl} />
+        <CardLink to="/project-tree-of-light" title="Tree Of Light" subtitle="Image · Text" img={TreeOfLightImageUrl} />
+        <CardLink to="/project-rolling-sphere-car" title="Rolling Sphere Car" subtitle="Image · Text" img={RollingSphereCarImageUrl} />
       </div>
     </div>
   </Container>
@@ -153,18 +158,57 @@ const ProjectRollingSphereCar = () => (
     </article>
   </Container>
 );
-// ---- Small UI Building Blocks ----
-const CardLink = ({ to, title, subtitle }: { to: string; title: string; subtitle?: string }) => (
+
+// // ---- Small UI Building Blocks ----
+// const CardLink = ({ to, title, subtitle }: { to: string; title: string; subtitle?: string }) => (
+//   <Link
+//     to={to}
+//     className="group rounded-2xl border border-neutral-200 p-5 shadow-sm hover:shadow-md transition"
+//   >
+//     <div className="flex items-center justify-between">
+//       <div>
+//         <h3 className="font-medium tracking-tight">{title}</h3>
+//         {subtitle && <p className="text-sm text-neutral-600">{subtitle}</p>}
+//       </div>
+//       <span className="transition group-hover:translate-x-1">→</span>
+//     </div>
+//   </Link>
+// );
+
+
+const CardLink = ({
+  to,
+  title,
+  subtitle,
+  img,
+}: {
+  to: string;
+  title: string;
+  subtitle?: string;
+  img: string; // imported URL
+}) => (
   <Link
     to={to}
-    className="group rounded-2xl border border-neutral-200 p-5 shadow-sm hover:shadow-md transition"
+    className="group block rounded-2xl overflow-hidden shadow hover:shadow-lg transition"
   >
-    <div className="flex items-center justify-between">
-      <div>
-        <h3 className="font-medium tracking-tight">{title}</h3>
-        {subtitle && <p className="text-sm text-neutral-600">{subtitle}</p>}
+    <div className="relative aspect-[16/9]">
+      {/* Background image */}
+      <div
+        className="absolute inset-0 bg-center bg-cover transition duration-500 filter grayscale group-hover:grayscale-0 scale-105 group-hover:scale-100"
+        style={{ backgroundImage: `url(${img})` }}
+        aria-hidden="true"
+      />
+
+      {/* Dark overlay for text contrast */}
+      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition" />
+
+      {/* Text */}
+      <div className="absolute inset-0 p-4 flex flex-col justify-end">
+        <h3 className="text-white font-semibold tracking-tight">{title}</h3>
+        {subtitle && (
+          <p className="text-white/80 text-sm">{subtitle}</p>
+        )}
       </div>
-      <span className="transition group-hover:translate-x-1">→</span>
     </div>
   </Link>
 );
