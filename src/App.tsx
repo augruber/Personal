@@ -68,7 +68,7 @@ const Home = () => (
 		  <img
 		    src={MeUrl}
 		    alt="Portrait of Aurel"
-		    className="w-80 h-80 rounded-full shadow-md object-cover mb-6"
+		    className="w-96 h-96 rounded-full shadow-md object-cover mb-6"
 		  />
 		  <figcaption className="mt-2 text-sm text-neutral-600">
 		    Hi, I’m Aurel 👋
