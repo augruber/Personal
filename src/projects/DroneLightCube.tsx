@@ -3,7 +3,7 @@ import React from "react";
 const DroneLightCube = () => (
   <article className="grid gap-8">
     <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mb-6">
-      Drone Light Cube
+      LumiGlide
     </h1>
     <p className="text-lg italic">
       A swarm of light-carrying drones transforms a transparent cube into a living sculpture of lines, planes, and shifting fog.
@@ -11,7 +11,7 @@ const DroneLightCube = () => (
 
     <div className="prose prose-neutral max-w-none">
       <p>
-        The <em>Drone Light Cube</em> explores the intersection of autonomous flight,
+        The <em>LumiGlide</em> explores the intersection of autonomous flight,
         light, and spatial perception. Imagine a five-meter cube filled with a fine
         haze, where a fleet of small drones carry light sources to sketch shifting
         geometries in mid-air. Lines become planes, beams intersect, and fog layers
@@ -44,7 +44,7 @@ const DroneLightCube = () => (
       </p>
 
       <p>
-        Overall, the <em>Drone Light Cube</em> is not just an artistic concept but a
+        Overall, the <em>LumiGlide</em> is not just an artistic concept but a
         technical challenge: integrating autonomous flight, optical design, and
         environmental effects into a controlled, safe, and awe-inspiring installation.
       </p>

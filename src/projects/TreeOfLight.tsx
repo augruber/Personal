@@ -2,7 +2,7 @@ import React from "react";
 
 const TreeOfLight: React.FC = () => (
   <article className="grid gap-8">
-    <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">Tree of Light</h1>
+    <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">Lucent Willon</h1>
 
     {/* Tagline */}
     <p className="text-lg italic">
@@ -11,13 +11,13 @@ const TreeOfLight: React.FC = () => (
 
     {/* Hero (optional) */}
     {/* <figure className="rounded-2xl overflow-hidden shadow">
-      <img src="/tree-of-light-hero.jpg" alt="Tree of Light render" className="w-full h-auto" />
+      <img src="/tree-of-light-hero.jpg" alt="Lucent Willow render" className="w-full h-auto" />
       <figcaption className="mt-2 text-sm text-neutral-600 text-center">Concept render (placeholder)</figcaption>
     </figure> */}
 
     <div className="prose prose-neutral max-w-none">
       <p>
-        The <em>Tree of Light</em> is a five-meter sculptural installation, inspired by the form of a
+        The <em>Lucent Willon</em> is a five-meter sculptural installation, inspired by the form of a
         weeping willow and designed for Burning Man’s harsh desert conditions. From its branches hang
         dozens of LED-lit strings that glow at night while droplets of water trickle down their length,
         scattering light into sparkling fragments. In a landscape defined by dust, heat, and scarcity,
@@ -36,7 +36,7 @@ const TreeOfLight: React.FC = () => (
       <ul>
         <li>
           <strong>Atmospheric Water Generation:</strong> The system combines <em>passive radiative cooling</em>—
-          surfaces that reject heat to the night sky to promote dew formation—with <em>active condensation</em>
+          surfaces that reject heat to the night sky to promote dew formation—with <em>active condensation </em> 
           using compact electrically powered coolers. Together they extract small but meaningful quantities of water
           from desert air.
         </li>
@@ -50,7 +50,7 @@ const TreeOfLight: React.FC = () => (
         </li>
       </ul>
 
-      <h3>Why It Matters</h3>
+      <h3>Intended Effect</h3>
       <p>
         The installation tackles two core desert challenges—<strong>heat</strong> and <strong>water</strong>—by
         turning them into the very medium of the work. Solar energy drives light and cooling; radiative surfaces and
