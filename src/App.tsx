@@ -12,7 +12,7 @@ import GantlitzImageUrl from "./assets/Gantlitz.png";
 import SculptingImageUrl from "./assets/Sculpting.png";
 import OptimizationImageUrl from "./assets/Optimization.png";
 import SLIMImageUrl from "./assets/SLIM.png";
-import UBSImageUrl from "./assets/UBS.png";
+import AnimationImageUrl from "./assets/Animation.png";
 
 
 import MeUrl from "./assets/Me.jpeg";
@@ -91,7 +91,7 @@ const Container = ({ children }: { children: React.ReactNode }) => {
                      className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
                     UV Mapping for Blender   <ExternalLink className="h-4 w-4 ml-2" />
                   </a>
-                  <a href="https://pixcube.com/reader/ubs-2.html" target="_blank" rel="noopener noreferrer"
+                  <a href="https://pixcube.com/" target="_blank" rel="noopener noreferrer"
                      className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
                     3D Animation   <ExternalLink className="h-4 w-4 ml-2" />
                   </a>
@@ -174,7 +174,7 @@ const Container = ({ children }: { children: React.ReactNode }) => {
                    className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
                     UV Mapping for Blender  <ExternalLink className="h-4 w-4 ml-2" />
                   </a>
-                  <a href="https://pixcube.com/reader/ubs-2.html" target="_blank" rel="noopener noreferrer"
+                  <a href="https://pixcube.com" target="_blank" rel="noopener noreferrer"
                    className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
                     3D Animation <ExternalLink className="h-4 w-4 ml-2" />
                   </a>
@@ -259,7 +259,7 @@ const Home = () => (
         <Card href="https://studios.disneyresearch.com/2020/07/03/interactive-sculpting-of-digital-faces-using-an-anatomical-modeling-paradigm/" title="Interactive Sculpting of Faces" subtitle="Published a method for interactive sculpting of digital faces using an anatomical modeling paradigm to the Symposium on Geometry Processing as first author." img={SculptingImageUrl} />
         <Card href="https://studios.disneyresearch.com/2020/05/25/fast-nonlinear-least-squares-optimization-of-large-scale-semi-sparse-problems/" title="Fast Nonlinear Optimization" subtitle="Co-authored a paper on fast non-linear optimization which we published to Eurographics." img={OptimizationImageUrl} />
         <Card href="https://www.youtube.com/watch?v=PLUoLQUK3-s" title="SLIM Based UV Mapping for Blender" subtitle="Implemented a distance preserving UV unwrapping algorithm into Blender and presented it at the Blender Conference 2016." img={SLIMImageUrl} />
-        <Card href="https://pixcube.com/reader/ubs-2.html" title="3D Animation" subtitle="I contributed to different projects across the full 3D pipeline at Pixcube as an intern in 2013." img={UBSImageUrl} />
+        <Card href="https://pixcube.com/" title="3D Animation" subtitle="I contributed to different projects across the full 3D pipeline at Pixcube as an intern in 2013." img={AnimationImageUrl} />
       </div>
 
 

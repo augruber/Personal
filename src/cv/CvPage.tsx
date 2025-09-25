@@ -112,7 +112,7 @@ export default function CVPage() {
                   <div className="text-sm text-neutral-600">2016</div>
                 </div>
                 <p className="text-sm text-neutral-800">
-                  Implemented geometry‑processing algorithms in C++ to support active 3D WebGL tools for garment visualization and inspection.
+                  Implemented geometry‑processing algorithms in C++ and 3D WebGL tools for garment visualization, inspection and processing.
                 </p>
               </li>
 
