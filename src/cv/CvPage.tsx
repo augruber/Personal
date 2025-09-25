@@ -194,15 +194,12 @@ export default function CVPage() {
                 <p className="text-sm text-neutral-800">Rolling LED sphere art car.</p>
               </li>
             </ul>
+            <a href="/CV.pdf"
+                className="inline-block px-4 mt-16 py-2 bg-neutral-800 text-white rounded-lg hover:bg-neutral-700 transition">
+               Download CV (PDF)
+            </a>    
           </section>
         </div>
-      </div>
-
-            <div className="flex justify-center">
-              <a href="/CV.pdf"
-             className="inline-block px-4 py-2 bg-neutral-800 text-white rounded-lg hover:bg-neutral-700 transition">
-             Download CV (PDF)
-        </a>    
       </div>
     </article>
   );
