@@ -21,7 +21,7 @@ export default function CVPage() {
         <ul className="text-sm text-neutral-800 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
           <li><span className="font-medium">Email:</span> <a className="underline" href="mailto:aurel.gruber@gmail.com">aurel.gruber@gmail.com</a></li>
           <li><span className="font-medium">Location:</span> Zürich, Wiedikon</li>
-          <li><span className="font-medium">Website:</span> <a className="underline" href="https://aurelgruber.com" target="_blank" rel="noreferrer">aurelgruber.com</a></li>
+          <li><span className="font-medium">Website:</span> <a className="underline" href="https://aurelgruber.com" target="_blank" rel="noreferrer">aurelgruber.com</a></li> 
         </ul>
       </header>
 
@@ -196,6 +196,13 @@ export default function CVPage() {
             </ul>
           </section>
         </div>
+      </div>
+
+            <div className="flex justify-center">
+              <a href="/CV.pdf"
+             className="inline-block px-4 py-2 bg-neutral-800 text-white rounded-lg hover:bg-neutral-700 transition">
+             Download CV (PDF)
+        </a>    
       </div>
     </article>
   );
