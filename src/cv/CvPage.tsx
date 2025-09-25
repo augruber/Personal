@@ -49,6 +49,7 @@ export default function CVPage() {
               <section>
                 <h2 className="text-base font-semibold tracking-tight mb-2">Skills</h2>
                 <ul className="text-sm text-neutral-800 list-disc pl-5 space-y-1">
+                  <li>Academic Research: literature review, scientific writing</li>
                   <li>Project & Team: Planning, Communication, Collaboration</li>
                   <li>Computer Graphics: 3D Reconstruction, Geometry & Image Processing, Tracking</li>
                   <li>Machine Learning: Training, Finetuning & Deployment (TensorFlow, JAX, PyTorch)</li>
