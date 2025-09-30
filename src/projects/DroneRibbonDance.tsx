@@ -6,7 +6,7 @@ const DroneRibbondance: React.FC = () => (
 
     {/* Tagline */}
     <p className="text-lg italic">
-      A pair of drones carry a suspended ribbon through the air, weaving flowing patterns that recall traditional ribbon dances. The choreography balances precision and unpredictability, as the drones’ motion and the air itself shape the fabric’s form.
+      Drones carry suspended ribbons through the air, weaving flowing patterns that recall traditional ribbon dances. The choreography balances precision and unpredictability, as the drones’ motion and the air itself shape the fabric’s form.
     </p>
 
     {/* Hero (optional) */}

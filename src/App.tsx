@@ -360,7 +360,7 @@ const ProjectDroneRibbonDance = () => (
           Your browser does not support the video tag.
         </video>
 
-        <figcaption className="text-sm text-neutral-600 mt-2 text-center">A single ribbon gliding through the air. Multiple ribbons could add additional complexity, both in appearance and technical sophistication.</figcaption>
+        <figcaption className="text-sm text-neutral-600 mt-2 text-center">A pair of ribbons gliding through the air. Additional ribbons can add additional complexity, both in appearance and technical sophistication.</figcaption>
       </figure>
       <DroneRibbonDance></DroneRibbonDance>
     </article>
