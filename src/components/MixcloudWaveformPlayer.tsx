@@ -386,7 +386,14 @@ export default function MixcloudWaveformPlayer({
         >
           <RotateCcw className="h-4 w-4" /> Restart
         </button>
-        <div className="ml-auto text-xs text-neutral-500">Mixcloud stream</div>
+        <a
+          href={feed.startsWith("http") ? feed : `https://www.mixcloud.com${feed}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ml-auto text-xs text-neutral-500 hover:text-neutral-700 hover:underline transition"
+        >
+          Mixcloud stream ↗
+        </a>      
       </div>
 
       <div className={hideIframe ? "h-0 overflow-hidden" : ""}>
