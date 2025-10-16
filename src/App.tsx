@@ -21,7 +21,7 @@ import DroneLightCube from "./projects/DroneLightCube";
 import TreeOfLight from "./projects/TreeOfLight";
 import DroneRibbonDance from "./projects/DroneRibbondance";
 
-import DJSets from "./projects/DJSets";
+import Music from "./projects/Music";
 
 import CVPage from "./cv/CvPage";
 
@@ -128,7 +128,7 @@ const Container = ({ children }: { children: React.ReactNode }) => {
               )}
             </div>
 
-            <NavLink to="/dj-sets" className={navLinkClass}>DJ Sets</NavLink>
+            <NavLink to="/music" className={navLinkClass}>Music</NavLink>
 
             {/* Standalone link */}
             <NavLink to="/cv" className={navLinkClass}>
@@ -206,8 +206,8 @@ const Container = ({ children }: { children: React.ReactNode }) => {
 
             {/* Standalone link */}
             <div className="flex flex-col gap-2 pt-2 border-t border-neutral-200">
-              <NavLink to="/dj-sets" className={navLinkClass} onClick={() => setIsMobileOpen(false)}>
-                DJ Sets
+              <NavLink to="/music" className={navLinkClass} onClick={() => setIsMobileOpen(false)}>
+                Music
               </NavLink>
               <NavLink to="/cv" className={navLinkClass} onClick={() => setIsMobileOpen(false)}>
                 CV
@@ -456,7 +456,7 @@ const App = () => (
       <Route path="/drone-light-cube" element={<DroneLightCube />} />
       <Route path="/tree-of-light" element={<TreeOfLight />} />
       <Route path="/drone-ribbon-dance" element={<DroneRibbonDance />} />
-      <Route path="/dj-sets" element={<Container><DJSets /></Container>} />
+      <Route path="/music" element={<Container><Music /></Container>} />
     </Routes>
   </Router>
 );

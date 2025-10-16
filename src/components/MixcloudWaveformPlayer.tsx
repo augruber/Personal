@@ -393,8 +393,7 @@ export default function MixcloudWaveformPlayer({
           className="ml-auto text-xs text-neutral-500 hover:text-neutral-700 hover:underline transition"
         >
           Mixcloud stream ↗
-        </a>      
-      </div>
+        </a>      </div>
 
       <div className={hideIframe ? "h-0 overflow-hidden" : ""}>
         <iframe
@@ -412,6 +411,7 @@ export default function MixcloudWaveformPlayer({
       </div>
 
       {/* Tracklist */}
+      {cueUrl && (
       <div className="border-t border-neutral-200">
         <button
           type="button"
@@ -458,7 +458,7 @@ export default function MixcloudWaveformPlayer({
             )}
           </div>
         )}
-      </div>
+      </div>)}
     </div>
   );
 }
