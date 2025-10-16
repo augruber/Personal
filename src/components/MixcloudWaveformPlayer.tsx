@@ -14,6 +14,7 @@ type Props = {
   showDebug?: boolean;        // set true to see a tiny status line
 };
 
+type TLItem = { start: number; artist?: string; title?: string; label: string };
 
 // Basic type
 type Color = [number, number, number, number?]; // r,g,b,a ∈ [0,1]
@@ -22,6 +23,7 @@ type Color = [number, number, number, number?]; // r,g,b,a ∈ [0,1]
 export default function MixcloudWaveformPlayer({
   feed,
   peaksUrl,
+  cueUrl,
   title,
   subtitle,
   height = 120,
@@ -41,6 +43,56 @@ export default function MixcloudWaveformPlayer({
   const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
   const peaksRef = React.useRef<Float32Array | null>(null);
   const shadowCanvasRef = React.useRef<HTMLCanvasElement | null>(null);
+
+  const [tlOpen, setTlOpen] = React.useState(false);
+  const [tlLoading, setTlLoading] = React.useState(false);
+  const [tlError, setTlError] = React.useState<string | null>(null);
+  const [tracklist, setTracklist] = React.useState<TLItem[] | null>(null);
+  const [activeTLIndex, setActiveTLIndex] = React.useState<number | null>(null);
+
+  // ---------- Tracjlist stuff ----------
+
+  const seekTo = (seconds: number) => {
+    const p = playerRef.current;
+    if (!p || !duration || typeof p.seek !== "function") return;
+    const clamped = Math.max(0, Math.min(duration, seconds));
+    p.seek(clamped);
+    positionRef.current = clamped; // optimistic
+    redraw();
+  };
+
+  React.useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        setTlLoading(true);
+        setTlError(null);
+        setTracklist(null);
+
+        const res = await fetch(cueUrl, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status} for ${cueUrl}`);
+        const txt = await res.text();
+
+        const items = parseCue(txt);
+        if (alive) setTracklist(items);
+      } catch (e: any) {
+        if (alive) setTlError(e?.message || "Failed to load CUE");
+      } finally {
+        if (alive) setTlLoading(false);
+      }
+    })();
+    return () => { alive = false; };
+  }, []); // load once, or key by some prop if needed
+
+  React.useEffect(() => {
+    if (!tracklist || !tracklist.length || !duration) { setActiveTLIndex(null); return; }
+    const pos = positionRef.current || 0;
+    let idx: number | null = null;
+    for (let i = 0; i < tracklist.length; i++) {
+      if (tracklist[i].start <= pos) idx = i; else break;
+    }
+    setActiveTLIndex(idx);
+  }, [tracklist, duration, position]);
 
   // ---------- Peaks loading & parsing ----------
   React.useEffect(() => {
@@ -351,6 +403,55 @@ export default function MixcloudWaveformPlayer({
           )}&hide_cover=1&mini=1&light=1`}
         />
       </div>
+
+      {/* Tracklist */}
+      <div className="border-t border-neutral-200">
+        <button
+          type="button"
+          onClick={() => setTlOpen(v => !v)}
+          className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-neutral-50"
+          aria-expanded={tlOpen}
+        >
+          <span className="text-sm font-medium">
+            Tracklist{tracklist ? ` (${tracklist.length})` : ""}
+          </span>
+          <span className="text-xs text-neutral-500">{tlOpen ? "Hide" : "Show"}</span>
+        </button>
+
+        {tlOpen && (
+          <div className="px-4 pb-3">
+            {tlLoading && <div className="text-sm text-neutral-500">Loading…</div>}
+            {tlError && <div className="text-sm text-red-600">Error: {tlError}</div>}
+            {!tlLoading && !tlError && (!tracklist || tracklist.length === 0) && (
+              <div className="text-sm text-neutral-500">No tracks found in CUE.</div>
+            )}
+            {!!tracklist?.length && (
+              <ul className="mt-1 divide-y divide-neutral-200 rounded-md overflow-hidden">
+                {tracklist.map((t, i) => {
+                  const isActive = i === activeTLIndex;
+                  return (
+                    <li
+                      key={`${t.start}-${i}`}
+                      className={`flex items-center gap-3 px-3 py-2 cursor-pointer ${
+                        isActive ? "bg-neutral-100" : "hover:bg-neutral-50"
+                      }`}
+                      onClick={() => seekTo(t.start)}
+                      title="Seek to this track"
+                    >
+                      <span className="text-xs tabular-nums text-neutral-500 w-14">
+                        {fmt(t.start)}
+                      </span>
+                      <span className={`text-sm ${isActive ? "font-medium text-neutral-900" : "text-neutral-700"}`}>
+                        {t.label}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -473,4 +574,76 @@ function addColor(a: Color, b: Color): Color {
     clamp(a[2] + b[2]),
     clamp((a[3] ?? 1) + (b[3] ?? 1) - 1),
   ];
+}
+
+function parseCue(cueText: string): TLItem[] {
+  const lines = cueText.split(/\r?\n/);
+  type Track = { artist?: string; title?: string; start?: number };
+  const tracks: Track[] = [];
+  let cur: Track | null = null;
+
+  const toSecondsFromFrames = (mm: number, ss: number, ff: number) =>
+    mm * 60 + ss + ff / 75;
+
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (!line) continue;
+
+    // Start new track
+    if (/^TRACK\s+\d+\s+AUDIO\b/i.test(line)) {
+      cur = {};
+      tracks.push(cur);
+      continue;
+    }
+
+    if (!cur) continue;
+
+    // Title / Performer
+    const mTitle = line.match(/^TITLE\s+"(.+?)"\s*$/i);
+    if (mTitle) { cur.title = mTitle[1]; continue; }
+
+    const mPerf = line.match(/^PERFORMER\s+"(.+?)"\s*$/i);
+    if (mPerf) { cur.artist = mPerf[1]; continue; }
+
+    const mIdx = line.match(/^INDEX\s+01\s+(\d{1,2}):(\d{2}):(\d{2})$/i);
+    if (mIdx) {
+      const h = parseInt(mIdx[1], 10);
+      const m = parseInt(mIdx[2], 10);
+      const s = parseInt(mIdx[3], 10);
+
+      // assume hh:mm:ss if hours < 10, otherwise mm:ss:frames (rare)
+      // since Rekordbox exports 00:00:00, treat as hh:mm:ss always
+      cur.start = h * 3600 + m * 60 + s;
+    }
+    // Non-standard hh:mm:ss fallback (if your export writes that)
+    const mIdxHMS = line.match(/^INDEX\s+01\s+(\d{1,2}):(\d{2}):(\d{2})$/i);
+    if (mIdxHMS) {
+      const hh = parseInt(mIdxHMS[1], 10);
+      const mm = parseInt(mIdxHMS[2], 10);
+      const ss = parseInt(mIdxHMS[3], 10);
+      cur.start = hh * 3600 + mm * 60 + ss;
+      continue;
+    }
+
+    // Ignore per-track FILE lines (Rekordbox)
+    if (/^FILE\s+/i.test(line)) continue;
+  }
+
+  // Build UI-friendly items
+  const items: TLItem[] = tracks
+    .filter(t => typeof t.start === "number")
+    .map(t => {
+      const artist = t.artist?.trim();
+      const title = t.title?.trim();
+      return {
+        start: t.start as number,
+        artist,
+        title,
+        label: [artist, title].filter(Boolean).join(" — ") || "Untitled",
+      };
+    })
+    .sort((a, b) => a.start - b.start);
+
+  // Deduplicate identical start times
+  return items.filter((t, i, arr) => i === 0 || t.start !== arr[i - 1].start);
 }

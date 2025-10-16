@@ -10,6 +10,7 @@ const DJSets: React.FC = () => (
     <MixcloudWaveformPlayer
       feed="https://www.mixcloud.com/RLAmadeo/session-1/"
 	  peaksUrl={`${import.meta.env.BASE_URL}WaveForms/01 Session 1.json`}
+	  cueUrl={`${import.meta.env.BASE_URL}tracklists/01 Session 1.cue`}
       title="Session 01 - No Controller"
       subtitle="Progressive / Melodic"
       hideIframe
