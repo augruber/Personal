@@ -1,4 +1,5 @@
 import React from "react";
+import MeBwUrl from "../assets/portrait_bw.jpg";
 
 /**
  * CVPage — content-rendered CV (no PDF)
@@ -28,7 +29,21 @@ export default function CVPage() {
       {/* 2‑column layout */}
       <div className="grid md:grid-cols-3 gap-8 items-start">
         {/* Left rail */}
-        <aside className="md:col-span-1">
+        <aside className="md:col-span-1 space-y-8">
+
+          <figure className="rounded-2xl overflow-hidden shadow bg-neutral-100">
+            {/* Keep a fixed aspect so layout doesn't jump before image loads */}
+            <div className="relative w-full aspect-[4/5] bg-neutral-200">
+              <img
+                src={MeBwUrl}
+                alt="Portrait of Aurel Gruber"
+                className="absolute inset-0 h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </figure>
+
           <div className="rounded-2xl overflow-hidden shadow bg-neutral-100">
             <div className="p-5 md:p-6 space-y-8">
               <section>
