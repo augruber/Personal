@@ -16,6 +16,7 @@ import AnimationImageUrl from "./assets/Animation.png";
 
 
 import MeUrl from "./assets/Me.jpeg";
+import MeBwUrl from "./assets/portrait_bw.jpg";
 import DroneLightCube from "./projects/DroneLightCube";
 import TreeOfLight from "./projects/TreeOfLight";
 import DroneRibbonDance from "./projects/DroneRibbondance";
@@ -234,11 +235,26 @@ const Home = () => (
       <SectionTitle>Welcome, I'm Aurel Gruber</SectionTitle>
       <Prose>
       <figure className="flex flex-col items-center">
-		  <img
+      <div className="relative w-96 h-96 rounded-full shadow-md mb-6 group">
+        {/* Default (black & white) image */}
+        <img
+          src={MeBwUrl}
+          alt="Portrait of Aurel"
+          className="absolute rounded-full inset-0 w-full h-full object-cover object-center transition-all duration-700 ease-in-out opacity-100 group-hover:opacity-0 group-hover:scale-100"
+        />
+        {/* Hover (color) image */}
+        <img
+          src={MeUrl}
+          alt="Portrait of Aurel"
+          className="absolute rounded-full inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out opacity-0 group-hover:opacity-100 group-hover:scale-100"
+        />
+      </div>
+
+{/*		  <img
 		    src={MeUrl}
 		    alt="Portrait of Aurel"
 		    className="w-96 h-96 rounded-full shadow-md object-cover mb-6 filter grayscale transition duration-500 hover:grayscale-0  hover:scale-98"
-		  />
+		  />*/}
 		</figure>
 
         <p>
