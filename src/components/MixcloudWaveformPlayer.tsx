@@ -50,7 +50,10 @@ export default function MixcloudWaveformPlayer({
   const [tracklist, setTracklist] = React.useState<TLItem[] | null>(null);
   const [activeTLIndex, setActiveTLIndex] = React.useState<number | null>(null);
 
-  // ---------- Tracjlist stuff ----------
+
+  const [coverUrl, setCoverUrl] = React.useState<string | null>(null);
+
+  // ---------- Tracklist stuff ----------
 
   const seekTo = (seconds: number) => {
     const p = playerRef.current;
@@ -117,6 +120,17 @@ export default function MixcloudWaveformPlayer({
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [peaksUrl]);
+
+  // ---------- Cover Art ----------
+  React.useEffect(() => {
+  const path = toFeedPath(feed);
+  fetch(`https://api.mixcloud.com${path}`)
+    .then((r) => r.json())
+    .then((data) => {
+      setCoverUrl(data?.pictures?.large || data?.pictures?.medium || null);
+    })
+    .catch(() => {});
+  }, [feed]);
 
   // ---------- Mixcloud widget ----------
   React.useEffect(() => {
@@ -351,12 +365,21 @@ export default function MixcloudWaveformPlayer({
 
   return (
     <div className="rounded-2xl border border-neutral-200 shadow-sm overflow-hidden bg-white">
-      {(title || subtitle) && (
-        <div className="px-4 pt-4">
-          {title && <div className="font-medium">{title}</div>}
+    {(title || subtitle || coverUrl) && (
+      <div className="px-4 pt-4 flex items-center gap-3">
+        {coverUrl && (
+          <img
+            src={coverUrl}
+            alt={title || "Mixcloud cover"}
+            className="w-16 h-16 rounded-lg object-cover border border-neutral-200 shadow-sm"
+          />
+        )}
+        <div>
+          {title && <div className="font-medium text-neutral-900">{title}</div>}
           {subtitle && <div className="text-sm text-neutral-500">{subtitle}</div>}
         </div>
-      )}
+      </div>
+    )}
 
       <div className="px-4 pt-4">
         <canvas
@@ -653,4 +676,15 @@ function parseCue(cueText: string): TLItem[] {
 
   // Deduplicate identical start times
   return items.filter((t, i, arr) => i === 0 || t.start !== arr[i - 1].start);
+}
+
+function toFeedPath(feed: string): string {
+  // Normalize feed → always starts with /
+  try {
+    const url = new URL(feed);
+    return url.pathname.endsWith('/') ? url.pathname : `${url.pathname}/`;
+  } catch {
+    // Already a relative path
+    return feed.startsWith('/') ? (feed.endsWith('/') ? feed : `${feed}/`) : `/${feed}/`;
+  }
 }
