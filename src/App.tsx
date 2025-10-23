@@ -31,7 +31,7 @@ import RollingSphereCar from "./projects/RollingSphereCar";
 
 import { Menu, X, ChevronDown, ExternalLink } from "lucide-react";
 
-const PayRedirect = ({ target }) => {
+const PayRedirect = ({ target }) => { 
   useEffect(() => {
     // Try to open the app
     window.location.replace(`myapp://pay/${target}`);
