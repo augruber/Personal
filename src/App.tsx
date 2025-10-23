@@ -20,6 +20,7 @@ import MeBwUrl from "./assets/portrait_bw.jpg";
 import DroneLightCube from "./projects/DroneLightCube";
 import TreeOfLight from "./projects/TreeOfLight";
 import DroneRibbonDance from "./projects/DroneRibbondance";
+import SourcePayRedirect from "./projects/SourcePayRedirect";
 
 import Music from "./projects/Music";
 
@@ -31,30 +32,6 @@ import RollingSphereCar from "./projects/RollingSphereCar";
 
 import { Menu, X, ChevronDown, ExternalLink } from "lucide-react";
 
-const PayRedirect = ({ target }) => { 
-  useEffect(() => {
-    // Try to open the app
-    window.location.replace(`myapp://pay/${target}`);
-
-    // Fallback link in case the automatic redirect fails
-    const timer = setTimeout(() => {
-      window.location.href = `myapp://pay/${target}`;
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [target]);
-
-  return (
-    <div style={{
-      fontFamily: "system-ui",
-      textAlign: "center",
-      marginTop: "20vh"
-    }}>
-      <h2>Returning to the app…</h2>
-      <p>If nothing happens, <a href={`myapp://pay/${target}`}>tap here</a>.</p>
-    </div>
-  );
-};
 
 
 const Container = ({ children }: { children: React.ReactNode }) => {
@@ -483,10 +460,9 @@ const App = () => (
       <Route path="/tree-of-light" element={<TreeOfLight />} />
       <Route path="/drone-ribbon-dance" element={<DroneRibbonDance />} />
       <Route path="/music" element={<Container><Music /></Container>} />
-        
-      <Route path="/pay/success" element={<PayRedirect target="success" />} />
-      <Route path="/pay/cancel" element={<PayRedirect target="cancel" />} />
-      <Route path="/pay/error" element={<PayRedirect target="error" />} />
+      <Route path="/pay/success" element={<SourcePayRedirect target="success" />} />
+      <Route path="/pay/cancel" element={<SourcePayRedirect target="cancel" />} />
+      <Route path="/pay/error" element={<SourcePayRedirect target="error" />} />
     </Routes>
   </Router>
 );
