@@ -457,6 +457,10 @@ const App = () => (
       <Route path="/tree-of-light" element={<TreeOfLight />} />
       <Route path="/drone-ribbon-dance" element={<DroneRibbonDance />} />
       <Route path="/music" element={<Container><Music /></Container>} />
+        
+      <Route path="/pay/success" element={<PayRedirect target="success" />} />
+      <Route path="/pay/cancel" element={<PayRedirect target="cancel" />} />
+      <Route path="/pay/error" element={<PayRedirect target="error" />} />
     </Routes>
   </Router>
 );
