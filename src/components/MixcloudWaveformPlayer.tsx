@@ -102,7 +102,7 @@ export default function MixcloudWaveformPlayer({
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch(peaksUrl, { cache: "force-cache" });
+        const res = await fetch(peaksUrl, { cache: "no-cache" });
         if (!res.ok) return;
         const raw = await res.json();
         const peaks = parsePeaks(raw);
@@ -150,7 +150,15 @@ export default function MixcloudWaveformPlayer({
       const ev = (player as any).events;
       ev?.play?.on?.(() => setIsPlaying(true));
       ev?.pause?.on?.(() => setIsPlaying(false));
-      ev?.ended?.on?.(() => { setIsPlaying(false); setPosition(0); });
+      ev?.ended?.on?.(() => { setIsPlaying(false); setPosition(0); positionRef.current = 0; });
+      // progress event fires periodically with the actual playback position —
+      // use as primary source because getPosition() returns 0 for some track types
+      ev?.progress?.on?.((pos: number) => {
+        if (typeof pos === 'number' && !Number.isNaN(pos)) {
+          positionRef.current = pos;
+          setPosition(pos);
+        }
+      });
     }).catch(() => { });
     return () => { playerRef.current = null; };
   }, [apiReady, iframeLoaded]);
@@ -163,18 +171,20 @@ export default function MixcloudWaveformPlayer({
     let raf = 0;
     const tick = () => {
       const p = playerRef.current;
+      // Fallback: getPosition() works for some track types
       if (p && typeof p.getPosition === "function") {
         p.getPosition().then((pos: number) => {
-          if (typeof pos === "number" && !Number.isNaN(pos)) {
+          if (typeof pos === "number" && !Number.isNaN(pos) && pos > 0) {
             positionRef.current = pos;
             setPosition(pos);
-            redraw();
           }
         }).catch(() => { });
       }
       if (p && !duration && typeof p.getDuration === "function") {
         p.getDuration().then((d: number) => d && setDuration(d)).catch(() => { });
       }
+      // Always redraw — position may arrive from the progress event, not getPosition()
+      redraw();
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -332,7 +342,7 @@ export default function MixcloudWaveformPlayer({
       ctx.fillStyle = "#666";
       ctx.font = `${12 * (window.devicePixelRatio || 1)}px ui-sans-serif`;
       ctx.fillText(
-        `peaks:${columns} dur:${duration.toFixed(1)} pos:${position.toFixed(1)}`,
+        `peaks:${columns} dur:${duration.toFixed(1)} pos:${positionRef.current.toFixed(1)}`,
         X0 + 6,
         Y0 + 14 * (window.devicePixelRatio || 1)
       );
