@@ -8,21 +8,29 @@ const DJSets: React.FC = () => (
     <p className="text-neutral-600">Headphones recommended :)</p>
 
 
-  <MixcloudWaveformPlayer
+    <MixcloudWaveformPlayer
+      feed="https://www.mixcloud.com/RLAmadeo/incoherent/"
+      peaksUrl={`${import.meta.env.BASE_URL}WaveForms/Incoherent.json`}
+      title="Track: Incoherent"
+      subtitle="Electronic"
+      hideIframe
+    />
+
+    <MixcloudWaveformPlayer
       feed="https://www.mixcloud.com/RLAmadeo/simplicity-council/"
       peaksUrl={`${import.meta.env.BASE_URL}WaveForms/Psytrancetest.json`}
       title="Track: Simplicity Council"
       subtitle="Techno"
       hideIframe
-  />
-      <MixcloudWaveformPlayer
+    />
+    <MixcloudWaveformPlayer
       feed="https://www.mixcloud.com/RLAmadeo/session-1/"
-	    peaksUrl={`${import.meta.env.BASE_URL}WaveForms/01 Session 1.json`}
-	    cueUrl={`${import.meta.env.BASE_URL}tracklists/01 Session 1.cue`}
+      peaksUrl={`${import.meta.env.BASE_URL}WaveForms/01 Session 1.json`}
+      cueUrl={`${import.meta.env.BASE_URL}tracklists/01 Session 1.cue`}
       title="Set: Session 01 - No Controller"
       subtitle="Progressive / Melodic"
       hideIframe
-	/>
+    />
 
   </div>
 );

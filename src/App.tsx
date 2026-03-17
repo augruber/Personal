@@ -2,11 +2,11 @@ import React from "react";
 import { useState } from "react";
 import { HashRouter as Router, Routes, Route, Link, NavLink } from "react-router-dom";
 import RollingSphereCarImageUrl from "./assets/RollingSphereCar.png";
-import DroneLightCubeMovieUrl from "./assets/DroneCubeTest1.mov";
+const DroneLightCubeMovieUrl = `${import.meta.env.BASE_URL}DroneCubeTest1.mov`;
 import DroneLightCubeImageUrl from "./assets/DroneCubeStill.png";
 import TreeOfLightImageUrl from "./assets/TreeOfLight.png";
 import DroneRibbonDanceImageUrl from "./assets/DroneRibbonDanceStill.png";
-import DroneRibbonDanceMovieUrl from "./assets/DroneRibbonDance.mov";
+const DroneRibbonDanceMovieUrl = `${import.meta.env.BASE_URL}DroneRibbonDance.mov`;
 
 import GantlitzImageUrl from "./assets/Gantlitz.png";
 import SculptingImageUrl from "./assets/Sculpting.png";
@@ -82,23 +82,23 @@ const Container = ({ children }: { children: React.ReactNode }) => {
                   onMouseLeave={() => setIsTechOpen(false)}
                 >
                   <a href="https://syntec-research.github.io/GANtlitz/" target="_blank" rel="noopener noreferrer"
-                     className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
+                    className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
                     GANtlitz <ExternalLink className="h-4 w-4 ml-2" />
                   </a>
                   <a href="https://studios.disneyresearch.com/2020/07/03/interactive-sculpting-of-digital-faces-using-an-anatomical-modeling-paradigm/" target="_blank" rel="noopener noreferrer"
-                     className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
+                    className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
                     Interactive Sculpting of Faces <ExternalLink className="h-4 w-4 ml-2" />
                   </a>
                   <a href="https://studios.disneyresearch.com/2020/05/25/fast-nonlinear-least-squares-optimization-of-large-scale-semi-sparse-problems/" target="_blank" rel="noopener noreferrer"
-                     className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
+                    className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
                     Fast Nonlinear Optimization <ExternalLink className="h-4 w-4 ml-2" />
-                  </a>                  
+                  </a>
                   <a href="https://www.youtube.com/watch?v=PLUoLQUK3-s" target="_blank" rel="noopener noreferrer"
-                     className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
+                    className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
                     UV Mapping for Blender   <ExternalLink className="h-4 w-4 ml-2" />
                   </a>
                   <a href="https://pixcube.com/" target="_blank" rel="noopener noreferrer"
-                     className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
+                    className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
                     3D Animation   <ExternalLink className="h-4 w-4 ml-2" />
                   </a>
 
@@ -166,25 +166,25 @@ const Container = ({ children }: { children: React.ReactNode }) => {
             {isTechOpenMobile && (
               <div className="flex flex-col gap-2 pl-2 pb-2">
                 <a href="https://syntec-research.github.io/GANtlitz/" target="_blank" rel="noopener noreferrer"
-                   className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
-                    GANtlitz  <ExternalLink className="h-4 w-4 ml-2" />
+                  className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
+                  GANtlitz  <ExternalLink className="h-4 w-4 ml-2" />
                 </a>
                 <a href="https://studios.disneyresearch.com/2020/07/03/interactive-sculpting-of-digital-faces-using-an-anatomical-modeling-paradigm/" target="_blank" rel="noopener noreferrer"
-                   className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
-                    Interactive Sculpting of Faces  <ExternalLink className="h-4 w-4 ml-2" />
+                  className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
+                  Interactive Sculpting of Faces  <ExternalLink className="h-4 w-4 ml-2" />
                 </a>
-                  <a href="https://studios.disneyresearch.com/2020/05/25/fast-nonlinear-least-squares-optimization-of-large-scale-semi-sparse-problems/" target="_blank" rel="noopener noreferrer"
-                     className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
-                    Fast Nonlinear Optimization <ExternalLink className="h-4 w-4 ml-2" />
-                  </a>                
-                  <a href="https://www.youtube.com/watch?v=PLUoLQUK3-s" target="_blank" rel="noopener noreferrer"
-                   className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
-                    UV Mapping for Blender  <ExternalLink className="h-4 w-4 ml-2" />
-                  </a>
-                  <a href="https://pixcube.com" target="_blank" rel="noopener noreferrer"
-                   className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
-                    3D Animation <ExternalLink className="h-4 w-4 ml-2" />
-                  </a>
+                <a href="https://studios.disneyresearch.com/2020/05/25/fast-nonlinear-least-squares-optimization-of-large-scale-semi-sparse-problems/" target="_blank" rel="noopener noreferrer"
+                  className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
+                  Fast Nonlinear Optimization <ExternalLink className="h-4 w-4 ml-2" />
+                </a>
+                <a href="https://www.youtube.com/watch?v=PLUoLQUK3-s" target="_blank" rel="noopener noreferrer"
+                  className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
+                  UV Mapping for Blender  <ExternalLink className="h-4 w-4 ml-2" />
+                </a>
+                <a href="https://pixcube.com" target="_blank" rel="noopener noreferrer"
+                  className="flex items-center justify-between text-sm px-2 py-1 rounded hover:bg-neutral-100">
+                  3D Animation <ExternalLink className="h-4 w-4 ml-2" />
+                </a>
               </div>
             )}
 
@@ -243,41 +243,41 @@ const Home = () => (
     <div className="grid gap-8">
       <SectionTitle>Welcome, I'm Aurel Gruber</SectionTitle>
       <Prose>
-      <figure className="flex flex-col items-center">
-      <div className="relative w-96 h-96 rounded-full shadow-md mb-6 group">
-        {/* Default (black & white) image */}
-        <img
-          src={MeBwUrl}
-          alt="Portrait of Aurel"
-          className="absolute rounded-full inset-0 w-full h-full object-cover object-center transition-all duration-700 ease-in-out opacity-100 group-hover:opacity-0 group-hover:scale-100"
-        />
-        {/* Hover (color) image */}
-        <img
-          src={MeUrl}
-          alt="Portrait of Aurel"
-          className="absolute rounded-full inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out opacity-0 group-hover:opacity-100 group-hover:scale-100"
-        />
-      </div>
+        <figure className="flex flex-col items-center">
+          <div className="relative w-96 h-96 rounded-full shadow-md mb-6 group">
+            {/* Default (black & white) image */}
+            <img
+              src={MeBwUrl}
+              alt="Portrait of Aurel"
+              className="absolute rounded-full inset-0 w-full h-full object-cover object-center transition-all duration-700 ease-in-out opacity-100 group-hover:opacity-0 group-hover:scale-100"
+            />
+            {/* Hover (color) image */}
+            <img
+              src={MeUrl}
+              alt="Portrait of Aurel"
+              className="absolute rounded-full inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out opacity-0 group-hover:opacity-100 group-hover:scale-100"
+            />
+          </div>
 
-{/*		  <img
+          {/*		  <img
 		    src={MeUrl}
 		    alt="Portrait of Aurel"
 		    className="w-96 h-96 rounded-full shadow-md object-cover mb-6 filter grayscale transition duration-500 hover:grayscale-0  hover:scale-98"
 		  />*/}
-		</figure>
+        </figure>
 
         <p>
-          I come from a technical background in academic research, computer graphics, machine learning, and mechanical manufacturing, 
-          but I am steadily moving toward work that lives at the intersection of art and technology. Over the past 
-          years I have worked on algorithms, generative models, and production software; now I am interested in 
-          applying these skills to create installations that engage people in physical space. Burning Man and other 
-          encounters with large-scale collaborative art inspired me to see technology as more than function — 
+          I come from a technical background in academic research, computer graphics, machine learning, and mechanical manufacturing,
+          but I am steadily moving toward work that lives at the intersection of art and technology. Over the past
+          years I have worked on algorithms, generative models, and production software; now I am interested in
+          applying these skills to create installations that engage people in physical space. Burning Man and other
+          encounters with large-scale collaborative art inspired me to see technology as more than function —
           it can be a medium for shared experience. This site collects some of the ideas I am developing along that path and highlights some of my past technical projects.
         </p>
 
       </Prose>
 
-	  <SectionTitle>Technical Projects</SectionTitle>
+      <SectionTitle>Technical Projects</SectionTitle>
 
       <div className="grid md:grid-cols-2 gap-6">
         <Card href="https://syntec-research.github.io/GANtlitz/" title="GANtlitz" subtitle="Published a StyleGAN based method for ultra high resolution texture synthesis at Eurographics as first author." img={GantlitzImageUrl} />
@@ -288,7 +288,7 @@ const Home = () => (
       </div>
 
 
-	  <SectionTitle>Art Concepts</SectionTitle>
+      <SectionTitle>Art Concepts</SectionTitle>
 
       <div className="grid md:grid-cols-2 gap-6">
 
@@ -316,8 +316,8 @@ const ProjectDroneLightCube = () => (
           playsInline
           poster={DroneLightCubeImageUrl}
           autoPlay
-		  loop
-		  muted
+          loop
+          muted
         >
           <source src={DroneLightCubeMovieUrl} type="video/mp4" />
           Your browser does not support the video tag.
@@ -372,14 +372,14 @@ const ProjectDroneRibbonDance = () => (
     <article className="grid gap-8">
       <SectionTitle>Skyweave</SectionTitle>
       <figure className="rounded-2xl overflow-hidden shadow">
-		<video
+        <video
           className="w-full h-auto"
           controls
           playsInline
           poster={DroneRibbonDanceImageUrl}
           autoPlay
-		  loop
-		  muted
+          loop
+          muted
         >
           <source src={DroneRibbonDanceMovieUrl} type="video/mp4" />
           Your browser does not support the video tag.
