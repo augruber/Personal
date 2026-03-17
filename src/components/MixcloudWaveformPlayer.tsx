@@ -123,13 +123,13 @@ export default function MixcloudWaveformPlayer({
 
   // ---------- Cover Art ----------
   React.useEffect(() => {
-  const path = toFeedPath(feed);
-  fetch(`https://api.mixcloud.com${path}`)
-    .then((r) => r.json())
-    .then((data) => {
-      setCoverUrl(data?.pictures?.large || data?.pictures?.medium || null);
-    })
-    .catch(() => {});
+    const path = toFeedPath(feed);
+    fetch(`https://api.mixcloud.com${path}`)
+      .then((r) => r.json())
+      .then((data) => {
+        setCoverUrl(data?.pictures?.large || data?.pictures?.medium || null);
+      })
+      .catch(() => { });
   }, [feed]);
 
   // ---------- Mixcloud widget ----------
@@ -146,12 +146,12 @@ export default function MixcloudWaveformPlayer({
       try {
         const d = await player.getDuration?.();
         if (d) setDuration(d);
-      } catch {}
+      } catch { }
       const ev = (player as any).events;
       ev?.play?.on?.(() => setIsPlaying(true));
       ev?.pause?.on?.(() => setIsPlaying(false));
       ev?.ended?.on?.(() => { setIsPlaying(false); setPosition(0); });
-    }).catch(() => {});
+    }).catch(() => { });
     return () => { playerRef.current = null; };
   }, [apiReady, iframeLoaded]);
 
@@ -170,10 +170,10 @@ export default function MixcloudWaveformPlayer({
             setPosition(pos);
             redraw();
           }
-        }).catch(() => {});
+        }).catch(() => { });
       }
       if (p && !duration && typeof p.getDuration === "function") {
-        p.getDuration().then((d: number) => d && setDuration(d)).catch(() => {});
+        p.getDuration().then((d: number) => d && setDuration(d)).catch(() => { });
       }
       raf = requestAnimationFrame(tick);
     };
@@ -190,9 +190,9 @@ export default function MixcloudWaveformPlayer({
 
     const resize = () => {
       const cssW = Math.max(320, parent.clientWidth || 800); // ensure non-zero
-      canvas.width  = Math.floor(cssW * dpr);
+      canvas.width = Math.floor(cssW * dpr);
       canvas.height = Math.floor(height * dpr);
-      canvas.style.width  = "100%";
+      canvas.style.width = "100%";
       canvas.style.height = `${height}px`;
       redraw();
     };
@@ -205,7 +205,7 @@ export default function MixcloudWaveformPlayer({
   }, [height]);
 
   // ---------- Draw waveform ----------
-  
+
   const PADDING = 20; // space on left/right/top/bottom for shadow
 
   const redraw = React.useCallback(() => {
@@ -275,8 +275,8 @@ export default function MixcloudWaveformPlayer({
 
     // draw solid silhouettes to the shadow canvas (no blur here)
     for (let i = 0; i < columns; i++) {
-      const x0 = Math.round((i    * CW) / columns);
-      const x1 = Math.round(((i+1) * CW) / columns);
+      const x0 = Math.round((i * CW) / columns);
+      const x1 = Math.round(((i + 1) * CW) / columns);
       const barW = Math.max(1, x1 - x0);
 
       const amp = Math.max(floor, Math.min(1, peaksFitted[i] ?? 0));
@@ -298,8 +298,8 @@ export default function MixcloudWaveformPlayer({
     for (let i = 0; i < columns; i++) {
       const evenCol = Number((i % 2) === 0);
 
-      const x0 = X0 + Math.round((i    * CW) / columns);
-      const x1 = X0 + Math.round(((i+1) * CW) / columns);
+      const x0 = X0 + Math.round((i * CW) / columns);
+      const x1 = X0 + Math.round(((i + 1) * CW) / columns);
       const barW = Math.max(1, x1 - x0);
 
       const amp = Math.max(floor, Math.min(1, peaksFitted[i] ?? 0));
@@ -320,8 +320,10 @@ export default function MixcloudWaveformPlayer({
     ctx.restore();
 
     // --- playhead line aligned to content rect ---
+    // Use playedCols (same value used for bar colouring) so the line
+    // always sits exactly at the played/unplayed colour boundary.
     if (duration > 0) {
-      const playedPx = X0 + Math.min(Math.round((positionRef.current / duration) * CW), CW - 1);
+      const playedPx = X0 + Math.min(Math.round((playedCols / columns) * CW), CW - 1);
       ctx.fillStyle = "#000";
       ctx.fillRect(playedPx, Y0, 1, CH);
     }
@@ -353,7 +355,7 @@ export default function MixcloudWaveformPlayer({
     if (!canvas || !p || !duration || typeof p.seek !== "function") return;
 
     const rect = canvas.getBoundingClientRect();
-    const innerLeft  = rect.left + PADDING;
+    const innerLeft = rect.left + PADDING;
     const innerRight = rect.right - PADDING;
     const innerWidth = Math.max(1, innerRight - innerLeft);
 
@@ -365,21 +367,21 @@ export default function MixcloudWaveformPlayer({
 
   return (
     <div className="rounded-2xl border border-neutral-200 shadow-sm overflow-hidden bg-white">
-    {(title || subtitle || coverUrl) && (
-      <div className="px-4 pt-4 flex items-center gap-3">
-        {coverUrl && (
-          <img
-            src={coverUrl}
-            alt={title || "Mixcloud cover"}
-            className="w-16 h-16 rounded-lg object-cover border border-neutral-200 shadow-sm"
-          />
-        )}
-        <div>
-          {title && <div className="font-medium text-neutral-900">{title}</div>}
-          {subtitle && <div className="text-sm text-neutral-500">{subtitle}</div>}
+      {(title || subtitle || coverUrl) && (
+        <div className="px-4 pt-4 flex items-center gap-3">
+          {coverUrl && (
+            <img
+              src={coverUrl}
+              alt={title || "Mixcloud cover"}
+              className="w-16 h-16 rounded-lg object-cover border border-neutral-200 shadow-sm"
+            />
+          )}
+          <div>
+            {title && <div className="font-medium text-neutral-900">{title}</div>}
+            {subtitle && <div className="text-sm text-neutral-500">{subtitle}</div>}
+          </div>
         </div>
-      </div>
-    )}
+      )}
 
       <div className="px-4 pt-4">
         <canvas
@@ -435,53 +437,52 @@ export default function MixcloudWaveformPlayer({
 
       {/* Tracklist */}
       {cueUrl && (
-      <div className="border-t border-neutral-200">
-        <button
-          type="button"
-          onClick={() => setTlOpen(v => !v)}
-          className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-neutral-50"
-          aria-expanded={tlOpen}
-        >
-          <span className="text-sm font-medium">
-            Tracklist{tracklist ? ` (${tracklist.length})` : ""}
-          </span>
-          <span className="text-xs text-neutral-500">{tlOpen ? "Hide" : "Show"}</span>
-        </button>
+        <div className="border-t border-neutral-200">
+          <button
+            type="button"
+            onClick={() => setTlOpen(v => !v)}
+            className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-neutral-50"
+            aria-expanded={tlOpen}
+          >
+            <span className="text-sm font-medium">
+              Tracklist{tracklist ? ` (${tracklist.length})` : ""}
+            </span>
+            <span className="text-xs text-neutral-500">{tlOpen ? "Hide" : "Show"}</span>
+          </button>
 
-        {tlOpen && (
-          <div className="px-4 pb-3">
-            {tlLoading && <div className="text-sm text-neutral-500">Loading…</div>}
-            {tlError && <div className="text-sm text-red-600">Error: {tlError}</div>}
-            {!tlLoading && !tlError && (!tracklist || tracklist.length === 0) && (
-              <div className="text-sm text-neutral-500">No tracks found in CUE.</div>
-            )}
-            {!!tracklist?.length && (
-              <ul className="mt-1 divide-y divide-neutral-200 rounded-md overflow-hidden">
-                {tracklist.map((t, i) => {
-                  const isActive = i === activeTLIndex;
-                  return (
-                    <li
-                      key={`${t.start}-${i}`}
-                      className={`flex items-center gap-3 px-3 py-2 cursor-pointer ${
-                        isActive ? "bg-neutral-100" : "hover:bg-neutral-50"
-                      }`}
-                      onClick={() => seekTo(t.start)}
-                      title="Seek to this track"
-                    >
-                      <span className="text-xs tabular-nums text-neutral-500 w-14">
-                        {fmt(t.start)}
-                      </span>
-                      <span className={`text-sm ${isActive ? "font-medium text-neutral-900" : "text-neutral-700"}`}>
-                        {t.label}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </div>
-        )}
-      </div>)}
+          {tlOpen && (
+            <div className="px-4 pb-3">
+              {tlLoading && <div className="text-sm text-neutral-500">Loading…</div>}
+              {tlError && <div className="text-sm text-red-600">Error: {tlError}</div>}
+              {!tlLoading && !tlError && (!tracklist || tracklist.length === 0) && (
+                <div className="text-sm text-neutral-500">No tracks found in CUE.</div>
+              )}
+              {!!tracklist?.length && (
+                <ul className="mt-1 divide-y divide-neutral-200 rounded-md overflow-hidden">
+                  {tracklist.map((t, i) => {
+                    const isActive = i === activeTLIndex;
+                    return (
+                      <li
+                        key={`${t.start}-${i}`}
+                        className={`flex items-center gap-3 px-3 py-2 cursor-pointer ${isActive ? "bg-neutral-100" : "hover:bg-neutral-50"
+                          }`}
+                        onClick={() => seekTo(t.start)}
+                        title="Seek to this track"
+                      >
+                        <span className="text-xs tabular-nums text-neutral-500 w-14">
+                          {fmt(t.start)}
+                        </span>
+                        <span className={`text-sm ${isActive ? "font-medium text-neutral-900" : "text-neutral-700"}`}>
+                          {t.label}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
+          )}
+        </div>)}
     </div>
   );
 }
@@ -578,7 +579,7 @@ function normalizeArray(arr: any[]): Float32Array {
 function fmt(t: number) {
   const s = Math.max(0, Math.floor(t || 0));
   const m = Math.floor(s / 60), r = s % 60, h = Math.floor(m / 60), mm = m % 60;
-  return h > 0 ? `${h}:${mm.toString().padStart(2,"0")}:${r.toString().padStart(2,"0")}` : `${mm}:${r.toString().padStart(2,"0")}`;
+  return h > 0 ? `${h}:${mm.toString().padStart(2, "0")}:${r.toString().padStart(2, "0")}` : `${mm}:${r.toString().padStart(2, "0")}`;
 }
 
 // Clamp helper
